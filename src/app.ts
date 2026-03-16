@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import { postRouter } from "./modules/post/post.router";
 
 const app = express();
 
@@ -11,5 +12,9 @@ app.get("/hello", (req: Request, res: Response) => {
     message: "Hello World",
   });
 });
+
+// post router
+
+app.use("/post", postRouter);
 
 export default app;
