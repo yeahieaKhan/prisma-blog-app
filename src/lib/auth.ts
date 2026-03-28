@@ -43,8 +43,10 @@ export const auth = betterAuth({
   },
 
   emailVerification: {
+    sendOnSignUp: true,
     sendVerificationEmail: async ({ user, url, token }, request) => {
       console.log({ user, url, token });
+
       const verificationUrl = `${process.env.APP_URL}/verify-email?token=${token}`;
       const info = await transporter.sendMail({
         from: '"prisma blog app" <prismablog@ph.com>',
