@@ -4,10 +4,17 @@ import { Post } from "../../../generated/prisma/client";
 
 // get all post api
 
-const getAllPost = async () => {
+const getAllPost = async (payload: { search: string | undefined }) => {
   const result = await prisma.post.findMany({
     orderBy: {
       createdAt: "desc",
+    },
+
+    where: {
+      title: {
+        contains: payload.search as string,
+        mode: "insensitive",
+      },
     },
   });
   return result;
