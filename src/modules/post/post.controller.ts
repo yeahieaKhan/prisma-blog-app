@@ -1,0 +1,32 @@
+import { Request, Response } from "express";
+import { postService } from "./post.service";
+import { success } from "better-auth/*";
+
+const createPosts = async (req: Request, res: Response) => {
+  console.log(req.user);
+
+  try {
+    const user = req.user;
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "Unathories",
+      });
+    }
+    const result = await postService.createPostService(
+      req.body,
+      user.id as string,
+    );
+
+    res.status(201).json({ result });
+  } catch (error) {
+    res.status(400).json({
+      message: "Something  went wrong",
+      details: error,
+    });
+  }
+};
+
+export const postController = {
+  createPosts,
+};
