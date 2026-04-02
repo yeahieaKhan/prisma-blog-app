@@ -2,6 +2,18 @@ import { Request, Response } from "express";
 import { postService } from "./post.service";
 import { success } from "better-auth/*";
 
+const getAllPost = async (req: Request, res: Response) => {
+  const result = await postService.getAllPost();
+  try {
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({
+      message: "Something  went wrong",
+      details: error,
+    });
+  }
+};
+
 const createPosts = async (req: Request, res: Response) => {
   console.log(req.user);
 
@@ -29,4 +41,5 @@ const createPosts = async (req: Request, res: Response) => {
 
 export const postController = {
   createPosts,
+  getAllPost,
 };

@@ -27,5 +27,6 @@ app.get("/hello", (req: Request, res: Response) => {
 // post router
 
 app.use("/post", postRouter);
+app.use("/post", postRouter);
 
 export default app;
