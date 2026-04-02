@@ -1,35 +1,57 @@
 import { Request, Response } from "express";
 import { prisma } from "../../lib/prisma";
 import { Post } from "../../../generated/prisma/client";
+import { PostWhereInput } from "../../../generated/prisma/models";
 
 // get all post api
 
-const getAllPost = async (payload: { search: string | undefined }) => {
+const getAllPost = async ({
+  search,
+  tags,
+}: {
+  search: string | undefined;
+  tags: string[] | [];
+}) => {
+  const andCondition: PostWhereInput[] = [];
+  if (search) {
+    andCondition.push({
+      OR: [
+        {
+          title: {
+            contains: search as string,
+            mode: "insensitive",
+          },
+        },
+        {
+          content: {
+            contains: search as string,
+            mode: "insensitive",
+          },
+        },
+        {
+          tags: {
+            has: search as string,
+          },
+        },
+      ],
+    });
+  }
+
+  if (tags.length > 0) {
+    andCondition.push({
+      tags: {
+        hasEvery: tags as string[],
+      },
+    });
+  }
+
   const result = await prisma.post.findMany({
     orderBy: {
       createdAt: "desc",
     },
 
     where: {
-      OR: [
-        {
-          title: {
-            contains: payload.search as string,
-            mode: "insensitive",
-          },
-        },
-        {
-          content: {
-            contains: payload.search as string,
-            mode: "insensitive",
-          },
-        },
-        {
-          tags: {
-            has: payload.search as string,
-          },
-        },
-      ],
+      AND: andCondition,
     },
   });
   return result;
