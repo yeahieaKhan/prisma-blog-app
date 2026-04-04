@@ -8,9 +8,15 @@ import { PostWhereInput } from "../../../generated/prisma/models";
 const getAllPost = async ({
   search,
   tags,
+  page,
+  limit,
+  skip,
 }: {
   search: string | undefined;
   tags: string[] | [];
+  page: number;
+  limit: number;
+  skip: number;
 }) => {
   const andCondition: PostWhereInput[] = [];
   if (search) {
@@ -46,6 +52,8 @@ const getAllPost = async ({
   }
 
   const result = await prisma.post.findMany({
+    take: limit,
+    skip,
     orderBy: {
       createdAt: "desc",
     },
