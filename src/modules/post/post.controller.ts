@@ -28,6 +28,27 @@ const getAllPost = async (req: Request, res: Response) => {
     });
   }
 };
+// get single post
+
+const getPostByIdController = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const result = await postService.getPostById(id);
+
+    res.status(200).json({
+      success: true,
+      message: "Post fetched successfully",
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(400).json({
+      success: false,
+      message: "Something went wrong",
+      details: error.message,
+    });
+  }
+};
 
 const createPosts = async (req: Request, res: Response) => {
   console.log(req.user);
@@ -57,4 +78,5 @@ const createPosts = async (req: Request, res: Response) => {
 export const postController = {
   createPosts,
   getAllPost,
+  getPostByIdController,
 };

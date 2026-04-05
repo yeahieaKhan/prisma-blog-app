@@ -29,6 +29,7 @@ app.get("/hello", (req: Request, res: Response) => {
 
 app.use("/post", postRouter);
 app.use("/post", postRouter);
+app.use("/post", postRouter);
 
 //comment router
 

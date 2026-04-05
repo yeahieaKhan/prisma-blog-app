@@ -9,6 +9,7 @@ const router = express.Router();
 // user role
 
 router.get("/", postController.getAllPost);
+router.get("/:id", postController.getPostByIdController);
 router.post("/", auth(UserRoles.USER), postController.createPosts);
 
 export const postRouter = router;

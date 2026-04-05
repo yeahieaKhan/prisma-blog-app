@@ -64,6 +64,18 @@ const getAllPost = async ({
   });
   return result;
 };
+
+// getpost by id
+
+const getPostById = async (id: string) => {
+  const result = await prisma.post.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  return result;
+};
+
 // create post
 
 const createPostService = async (
@@ -82,6 +94,7 @@ const createPostService = async (
 export const postService = {
   createPostService,
   getAllPost,
+  getPostById,
 };
 
 // some file added
