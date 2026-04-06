@@ -17,6 +17,52 @@ const getCommentById = async (id: string) => {
   return result;
 };
 
+// get comment by author id
+
+const getCommentByAuthorId = async (authorId: string) => {
+  const result = await prisma.comment.findMany({
+    where: {
+      authorId,
+    },
+    orderBy: { createdAt: "desc" },
+    include: {
+      post: {
+        select: {
+          id: true,
+          title: true,
+        },
+      },
+    },
+  });
+  return result;
+};
+
+// delete comments
+
+const deleteComments = async (authorId: string, commentId: string) => {
+  const commentData = await prisma.comment.findFirst({
+    where: {
+      id: commentId,
+      authorId,
+    },
+
+    select: {
+      id: true,
+    },
+  });
+  if (!commentData) {
+    throw new Error("Inval");
+  }
+
+  const result = await prisma.comment.delete({
+    where: {
+      id: commentData.id,
+    },
+  });
+
+  return result;
+};
+
 const createComments = async (payload: {
   content: string;
   authorId: string;
@@ -46,4 +92,6 @@ const createComments = async (payload: {
 export const commentService = {
   createComments,
   getCommentById,
+  getCommentByAuthorId,
+  deleteComments,
 };

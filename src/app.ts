@@ -35,5 +35,7 @@ app.use("/post", postRouter);
 
 app.use("/comment", commentRouter);
 app.use("/comment", commentRouter);
+app.use("/comment", commentRouter);
+app.use("/commentDelete", commentRouter);
 
 export default app;

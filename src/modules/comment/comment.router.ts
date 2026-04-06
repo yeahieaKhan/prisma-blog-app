@@ -5,6 +5,12 @@ import auth, { UserRoles } from "../../middleware/auth";
 const router = express.Router();
 
 router.get("/:id", commentController.getCommentByIdController);
+router.get(
+  "/author/:authorId",
+  commentController.getCommentByAuthorIdController,
+);
+
+router.delete("/:commentId", commentController.deleteComments);
 
 router.post(
   "/",
