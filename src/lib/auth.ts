@@ -1,4 +1,4 @@
-import { betterAuth, string } from "better-auth";
+import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
 import nodemailer from "nodemailer";
@@ -66,7 +66,7 @@ export const auth = betterAuth({
     <tr>
       <td align="center">
         <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff; border-radius:8px; padding:40px;">
-          
+
           <!-- Logo / App Name -->
           <tr>
             <td align="center" style="font-size:24px; font-weight:bold; color:#333;">
@@ -100,7 +100,7 @@ export const auth = betterAuth({
           <!-- Button -->
           <tr>
             <td align="center">
-              <a href="${verificationUrl}" 
+              <a href="${verificationUrl}"
                  style="background-color:#4f46e5; color:#ffffff; padding:12px 24px; text-decoration:none; border-radius:6px; font-size:16px; display:inline-block;">
                 Verify Email
               </a>
