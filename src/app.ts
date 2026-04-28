@@ -28,14 +28,9 @@ app.get("/hello", (req: Request, res: Response) => {
 // post router
 
 app.use("/post", postRouter);
-app.use("/post", postRouter);
-app.use("/post", postRouter);
 
 //comment router
 
 app.use("/comment", commentRouter);
-app.use("/comment", commentRouter);
-app.use("/comment", commentRouter);
-app.use("/commentDelete", commentRouter);
 
 export default app;
