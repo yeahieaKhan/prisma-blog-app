@@ -17,6 +17,7 @@ app.use(
 );
 
 app.all("/api/auth/*splat", toNodeHandler(auth));
+// app.all("/api/auth/*", toNodeHandler(auth));
 
 // api
 app.get("/hello", (req: Request, res: Response) => {
